@@ -10109,7 +10109,7 @@ Error message and password prompt
 <div created="20210828072819097" modified="20210828075007341" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div created="20210828072826611" modified="20210828074333351" title="$:/state/sidebar">
+<div created="20210828072826611" modified="20210828083637826" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
 <div created="20210828072120188" modified="20210828072120188" title="$:/state/tab--1963855381">
@@ -10239,16 +10239,93 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20210828072401518" modified="20210828075143906" tags="docker fedora proxy systemd vpn jfrog artifactory" title="Docker: connection reset by peer">
-<pre>! Problem
+<div created="20210828072401518" modified="20210828083630019" tags="docker fedora proxy systemd vpn jfrog artifactory" title="Docker: connection reset by peer">
+<pre>!! Problem
 ```
 00:55:55 ~$ docker run -d -p 80:80 docker/getting-started
 Unable to find image 'docker/getting-started:latest' locally
 docker: Error response from daemon: Get &quot;https://registry-1.docker.io/v2/&quot;: read tcp 10.0.2.15:47408-&gt;34.197.211.151:443: read: connection reset by peer.
 See 'docker run --help'.
 ```
-! Context
-- Created a new [[VirtualBox|https://www.virtualbox.org/]] VM for [[Fedora|https://getfedora.org/]] on Windows host. Connected to office network through VPN. Need to push a [[</pre>
+
+!! Context
+* Created a new [[VirtualBox|https://www.virtualbox.org/]] VM for [[Fedora|https://getfedora.org/]] v34 on Windows host. 
+* Need to push a [[Docker|https://www.docker.com/]] container image to an on-site JFrog [[Artifactory|https://jfrog.com/artifactory/]] server. 
+* Connected to office network through VPN. 
+* The VPN requires authentication.
+
+!!Solution
+The docker service must authenticate with the proxy to download the container base image (`USES centos:7`).
+
+ The documentation here [[Control Docker with systemd|https://docs.docker.com/config/daemon/systemd/]] states that you should create the file `/etc/systemd/system/docker.service.d/http-proxy.conf` and define the environment variables in this file. ''This is not correct for Fedora v34. ''
+
+The `systemctl status docker` command shows the location of the docker unit file:
+
+```
+02:17:58 ~$ systemctl status docker
+● docker.service - Docker Application Container Engine
+     Loaded: loaded (/usr/lib/systemd/system/docker.service; disabled; vendor preset: disabled)
+     Active: active (running) since Sat 2021-08-28 02:17:58 MDT; 8s ago
+TriggeredBy: ● docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 3969 (dockerd)
+      Tasks: 17 (limit: 3519)
+     Memory: 43.3M
+        CPU: 273ms
+     CGroup: /system.slice/docker.service
+             ├─3969 /usr/bin/dockerd --host=fd:// --exec-opt native.cgroupdriver=systemd --selinux-ena&gt;
+             └─3976 containerd --config /var/run/docker/containerd/containerd.toml --log-level info
+```
+
+Inspecting the file `/usr/lib/systemd/system/docker.service` we see:
+
+```
+02:13:49 ~$ cat /usr/lib/systemd/system/docker.service
+[Unit]                                                                                                
+Description=Docker Application Container Engine                                                       
+Documentation=https://docs.docker.com                                                                 
+After=docker.socket network-online.target firewalld.service
+Requires=docker.socket                            
+Wants=network-online.target
+                                                                                                      
+[Service]         
+Type=notify                                                                                           
+EnvironmentFile=-/etc/sysconfig/docker                                                                
+# the default is not to use systemd for cgroups because the delegate issues still                 
+# exists and systemd currently does not support the cgroup feature set required
+# for containers run by docker                                                                        
+ExecStart=/usr/bin/dockerd \                                                                          
+          --host=fd:// \                                                                              
+          --exec-opt native.cgroupdriver=systemd \                                                    
+          $OPTIONS                                                                                    
+ExecReload=/bin/kill -s HUP $MAINPID                                                                  
+# Having non-zero Limit*s causes performance problems due to accounting overhead                      
+# in the kernel. We recommend using cgroups to do container-local accounting.                         
+LimitNOFILE=infinity                                                                                  
+LimitNPROC=infinity                                                                                   
+LimitCORE=infinity                                                                                    
+# Uncomment TasksMax if your systemd version supports it.
+# Only systemd 226 and above support this version.
+#TasksMax=infinity                                
+TimeoutStartSec=0                                                                                     
+# set delegate yes so that systemd does not reset the cgroups of docker containers
+#Delegate=yes                                     
+# kill only the docker process, not all processes in the cgroup
+KillMode=process
+# restart the docker process if it exits prematurely
+Restart=on-failure                                
+StartLimitBurst=3                                                                                     
+StartLimitInterval=60s                                                                                
+                                                  
+[Install]                                         
+WantedBy=multi-user.target
+```
+
+The key here is &lt;div style=&quot;background-color:yellow;font-family:monospace&quot;&gt;~EnvironmentFile=-/etc/sysconfig/docker&lt;/div&gt;
+
+The documentation for the [[systemd unit configuration variable|https://www.freedesktop.org/software/systemd/man/systemd.exec.html#EnvironmentFile=]] `EnvironmentFile`  states that ''Settings from these files override settings made with Environment=''.
+
+To set the `HTTP_PROXY` and `HTTPS_PROXY` environment variables we need to add the environment variable definitions to  the `/etc/sysconfig/docker` file</pre>
 </div>
 <div created="20210828072740536" modified="20210828074418625" tags="" title="IanBoisvert">
 <pre>&quot;&quot;&quot;
