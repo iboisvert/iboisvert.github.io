@@ -401,10 +401,10 @@ $ # Edit minidlna.conf
 See the [minidlna-docker](https://github.com/iboisvert/minidlna-docker) project for details.
 
 # References
-1. Introduction to Linux interfaces for virtual networking https://developers.redhat.com/blog/2018/10/22/introduction-to-linux-interfaces-for-virtual-networking
-2. [Wishlist] Support macvlan/macvtap interfaces https://bugs.launchpad.net/netplan/+bug/1664847
-2. Man systemd.network https://manpages.ubuntu.com/manpages/focal/man5/systemd.network.5.html
-3. Virtualization-libvirt https://ubuntu.com/server/docs/virtualization-libvirt
-2. Assign individual NIC to KVM guest https://serverfault.com/a/446664
-3. (Netplan) Support macvlan/macvtap interfaces https://bugs.launchpad.net/netplan/+bug/1664847
-4. Dell disables SR-IOV on network devices https://community.intel.com/t5/Ethernet-Products/Sr-IOV-Server-2012-I350-T4/td-p/218188?start=0&tstart=0
+1. Introduction to Linux interfaces for virtual networking <https://developers.redhat.com/blog/2018/10/22/introduction-to-linux-interfaces-for-virtual-networking>
+2. [Wishlist] Support macvlan/macvtap interfaces <https://bugs.launchpad.net/netplan/+bug/1664847>
+2. Man systemd.network <https://manpages.ubuntu.com/manpages/focal/man5/systemd.network.5.html>
+3. Virtualization-libvirt <https://ubuntu.com/server/docs/virtualization-libvirt>
+2. Assign individual NIC to KVM guest <https://serverfault.com/a/446664>
+3. (Netplan) Support macvlan/macvtap interfaces <https://bugs.launchpad.net/netplan/+bug/1664847>
+4. Dell disables SR-IOV on network devices <https://community.intel.com/t5/Ethernet-Products/Sr-IOV-Server-2012-I350-T4/td-p/218188?start=0&tstart=0>
