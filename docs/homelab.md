@@ -10,8 +10,9 @@ Honestly though, I just wanted to experiment with a hypervisor.
 # Host
 
 Summary:  
+
 <table>
-<thead><td>Machine</td><td>OS</td><td>Services</td><td>Specs</td>
+<thead><td>Machine</td><td>OS</td><td>Services</td><td>Specs</td></thead>
 <tr><td>Host</td><td>Ubuntu Server 20.04 LTS</td><td>SSH</td><td>Dell PowerEdge T710, 16GB, 4x BCM5709 GB nic, LSI SAS2008 HBA</td></tr>
 <tr><td>VM 1&mdash;gateway</td><td>OpenBSD 7.0</td><td>NAT, firewall, DHCP, caching DNS, NTP</td><td>1G, 1 CPU, 2 MACVTAP nic (wan-private, lan-bridge)</td></tr>
 <tr><td>VM 2&mdash;nas</td><td>OpenBSD 7.0</td><td>Samba</td><td>1G, 1 CPU, 1 MACVTAP nic (bridge)</td></tr>
@@ -35,7 +36,7 @@ I'm going to use software RAID because I feel that it is safer to use software R
 Ubuntu Server doesn't allow a degraded RAID 0 mirror to be created on install, so the disk needs to be partitioned before installing the host OS. I cannot remember exactly how I did this, probably by switching consoles while installing.
 
 <ol>
-<li>Create these partitions:
+<li>Create these partitions:</li>
    <ol>
    <li>600 MB EFI /boot/efi</li>
    <li>1 GB vfat /boot</li>
