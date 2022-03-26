@@ -3,7 +3,7 @@
 NAS, DHCP, caching DNS, and other misc services like git.
 
 ## Why?
-I bought a Dell T710 on the cheap over a year ago. I've been using FreeBSD with some success to run services like NAS, DHCP, and caching DNS, but I want to run a bunch of other services as well like Minecraft and Ubiquiti. In FreeBSD it would make sense to run these services in jails for isolation, but the CLI for managing jails is pretty klunky. I am using `ez-jail` but it seems to be unsupported.
+I bought a Dell T710 on the cheap over a year ago. I've been using FreeBSD with some success to run services like NAS, DHCP, and caching DNS, but I want to run a bunch of other services as well like Minecraft and Ubiquiti. In FreeBSD it would make sense to run these services in jails for isolation, but the CLI for managing jails is pretty clunky. I am using `ez-jail` but it seems to be unsupported.
 
 Honestly though, I just wanted to experiment with a hypervisor.
 
@@ -345,7 +345,7 @@ NAS services: Samba
 
 ## 4. Build Container Host--the **Cloud**
 
-Instead of hacking the Ubuntu Server installer ISO to support the serial console on boot, I tried booting using UEFI. It seems that UEFI enables both the local console and the serial console on boot, so it is not necessaary to hack the GRUB config.
+Instead of hacking the Ubuntu Server installer ISO to support the serial console on boot, I tried booting using UEFI. It seems that UEFI enables both the local console and the serial console on boot, so it is not necessary to hack the GRUB config.
 
 1. Install Ubuntu Server
    ```
