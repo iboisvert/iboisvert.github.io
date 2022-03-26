@@ -12,9 +12,9 @@ Honestly though, I just wanted to experiment with a hypervisor.
 Summary:  
 
 <table>
-<thead><td>Machine</td><td>OS</td><td>Services</td><td>Specs</td></thead>
+<thead><th>Machine</th><th>OS</th><th>Services</th><th>Specs</th></thead>
 <tr><td>Host</td><td>Ubuntu Server 20.04 LTS</td><td>SSH</td><td>Dell PowerEdge T710, 16GB, 4x BCM5709 GB nic, LSI SAS2008 HBA</td></tr>
-<tr><td>VM 1&mdash;gateway</td><td>OpenBSD 7.0</td><td>NAT, firewall, DHCP, caching DNS, NTP</td><td>1G, 1 CPU, 2 MACVTAP nic (wan-private, lan-bridge)</td></tr>
+<tr><td>VM 1&mdash;gateway</td><td>OpenBSD 7.0</td><td>NAT, firewall, DHCP, caching DNS, NTP</td><td>1G, 1 CPU, 2 MACVTAP nic (wan/private, lan/bridge)</td></tr>
 <tr><td>VM 2&mdash;nas</td><td>OpenBSD 7.0</td><td>Samba</td><td>1G, 1 CPU, 1 MACVTAP nic (bridge)</td></tr>
 <tr><td>VM 3&mdash;cloud</td><td>Ubuntu Server 20.04 LTS</td><td>Docker</td><td>2G, 2CPU, 1 MACVTAP nic (bridge)</td></tr>
 </table>
