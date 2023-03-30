@@ -10126,7 +10126,7 @@ Contents</pre>
 <div created="20210828072819097" modified="20230330065650930" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div created="20210828072826611" modified="20230330072943329" title="$:/state/sidebar">
+<div created="20210828072826611" modified="20230330073837486" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
 <div created="20210828072120188" modified="20210828072120188" title="$:/state/tab--1963855381">
@@ -10147,7 +10147,7 @@ Contents</pre>
 <div title="$:/status/RequireReloadDueToPluginChange">
 <pre>no</pre>
 </div>
-<div created="20230330064654420" list="Contents [[Migrating Fedora 36 to a new hard drive]] [[Ian Boisvert]] [[Home Lab]]" modified="20230330072847421" title="$:/StoryList">
+<div created="20230330064654420" list="Contents [[Ian Boisvert]] [[Home Lab]]" modified="20230330073804312" title="$:/StoryList">
 <pre></pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/vanilla" description="Emphasises individual tiddlers" name="Snow White" plugin-priority="0" plugin-type="theme" title="$:/themes/tiddlywiki/snowwhite" type="application/json" version="5.1.23">
@@ -10352,10 +10352,9 @@ The documentation for the [[systemd unit configuration variable|https://www.free
 
 To set the `HTTP_PROXY` and `HTTPS_PROXY` environment variables we need to add the environment variable definitions to  the `/etc/sysconfig/docker` file</pre>
 </div>
-<div created="20220427054453504" modified="20220427054905482" tags="Linux" title="ecryptfs-recover-private error: mount(2) system call failed">
+<div created="20220427054453504" modified="20230330073819927" tags="Linux" title="ecryptfs-recover-private error: mount(2) system call failed">
 <pre>```
-[iboisvert@asahi Backup]$ sudo ./ecryptfs-recover-private .ecryptfs/iboisvert/.Private/
-[sudo] password for iboisvert: 
+# ./ecryptfs-recover-private .ecryptfs/iboisvert/.Private/
 INFO: Found [.ecryptfs/iboisvert/.Private/].
 Try to recover this directory? [Y/n]: 
 INFO: Found your wrapped-passphrase
@@ -10366,17 +10365,16 @@ Inserted auth tok with sig [xxxxxxxxxxxxxxxx] into the user session keyring
 mount -i -t ecryptfs -o ro,ecryptfs_sig=xxxxxxxxxxxxxxxx,ecryptfs_fnek_sig=yyyyyyyyyyyyyyyy,ecryptfs_cipher=aes,ecryptfs_key_bytes=16 .ecryptfs/iboisvert/.Private/ /tmp/ecryptfs.d9xUHhVU
 mount: /tmp/ecryptfs.d9xUHhVU: mount(2) system call failed: No such file or directory.
 ERROR: Failed to mount private data at [/tmp/ecryptfs.d9xUHhVU].
-[iboisvert@asahi Backup]$ sudo mount -i -t ecryptfs -o ro,ecryptfs_sig=xxxxxxxxxxxxxxxx,ecryptfs_fnek_sig=yyyyyyyyyyyyyyyy,ecryptfs_cipher=aes,ecryptfs_key_bytes=16 .ecryptfs/iboisvert/.Private/ /tmp/ecryptfs.d9xUHhVU
+# mount -i -t ecryptfs -o ro,ecryptfs_sig=xxxxxxxxxxxxxxxx,ecryptfs_fnek_sig=yyyyyyyyyyyyyyyy,ecryptfs_cipher=aes,ecryptfs_key_bytes=16 .ecryptfs/iboisvert/.Private/ /tmp/ecryptfs.d9xUHhVU
 mount: /tmp/ecryptfs.d9xUHhVU: mount(2) system call failed: No such file or directory.
-[iboisvert@asahi Backup]$ sudo mount -t ecryptfs -o ro,ecryptfs_sig=xxxxxxxxxxxxxxxx,ecryptfs_fnek_sig=yyyyyyyyyyyyyyyy,ecryptfs_cipher=aes,ecryptfs_key_bytes=16 .ecryptfs/iboisvert/.Private/ /tmp/ecryptfs.d9xUHhVU
+# mount -t ecryptfs -o ro,ecryptfs_sig=xxxxxxxxxxxxxxxx,ecryptfs_fnek_sig=yyyyyyyyyyyyyyyy,ecryptfs_cipher=aes,ecryptfs_key_bytes=16 .ecryptfs/iboisvert/.Private/ /tmp/ecryptfs.d9xUHhVU
 Select key type to use for newly created files: 
  1) passphrase
  2) pkcs11-helper
  3) tspi
 Selection: 1
 Passphrase: 
-[iboisvert@asahi Backup]$ sudo mount -i -t ecryptfs -o ro,ecryptfs_sig=xxxxxxxxxxxxxxxx,ecryptfs_fnek_sig=yyyyyyyyyyyyyyyy,ecryptfs_cipher=aes,ecryptfs_key_bytes=16 .ecryptfs/iboisvert/.Private/ /tmp/ecryptfs.d9xUHhVU
-[iboisvert@asahi Backup]$ 
+# mount -i -t ecryptfs -o ro,ecryptfs_sig=xxxxxxxxxxxxxxxx,ecryptfs_fnek_sig=yyyyyyyyyyyyyyyy,ecryptfs_cipher=aes,ecryptfs_key_bytes=16 .ecryptfs/iboisvert/.Private/ /tmp/ecryptfs.d9xUHhVU
 ```</pre>
 </div>
 <div created="20220323075944514" modified="20230330072808262" tags="Top" title="Home Lab">
