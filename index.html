@@ -195,11 +195,15 @@ Error message and password prompt
 
 <li>Docker: connection reset by peer</li>
 
+<li>ecryptfs-recover-private error: mount(2) system call failed</li>
+
 <li>Home Lab</li>
 
 <li>Ian Boisvert</li>
 
 <li>Linux</li>
+
+<li>Migrating Fedora 36 to a new hard drive</li>
 
 </ul>
 </p>
@@ -10119,10 +10123,10 @@ Contents</pre>
 <div created="20210828072100923" modified="20210828072100923" title="$:/SiteTitle">
 <pre>Stupid Problems </pre>
 </div>
-<div created="20210828072819097" modified="20210828075007341" title="$:/state/showeditpreview">
+<div created="20210828072819097" modified="20230330065650930" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div created="20210828072826611" modified="20210828172010577" title="$:/state/sidebar">
+<div created="20210828072826611" modified="20230330072943329" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
 <div created="20210828072120188" modified="20210828072120188" title="$:/state/tab--1963855381">
@@ -10143,7 +10147,7 @@ Contents</pre>
 <div title="$:/status/RequireReloadDueToPluginChange">
 <pre>no</pre>
 </div>
-<div created="20220326062554314" list="[[Ian Boisvert]] Contents [[Home Lab]]" modified="20220326062554314" title="$:/StoryList">
+<div created="20230330064654420" list="Contents [[Migrating Fedora 36 to a new hard drive]] [[Ian Boisvert]] [[Home Lab]]" modified="20230330072847421" title="$:/StoryList">
 <pre></pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/vanilla" description="Emphasises individual tiddlers" name="Snow White" plugin-priority="0" plugin-type="theme" title="$:/themes/tiddlywiki/snowwhite" type="application/json" version="5.1.23">
@@ -10348,12 +10352,44 @@ The documentation for the [[systemd unit configuration variable|https://www.free
 
 To set the `HTTP_PROXY` and `HTTPS_PROXY` environment variables we need to add the environment variable definitions to  the `/etc/sysconfig/docker` file</pre>
 </div>
-<div created="20220323075944514" modified="20220325085656038" tags="Top" title="Home Lab">
-<pre>[[My home lab setup|http://iboisvert.github.io/homelab]]</pre>
+<div created="20220427054453504" modified="20220427054905482" tags="Linux" title="ecryptfs-recover-private error: mount(2) system call failed">
+<pre>```
+[iboisvert@asahi Backup]$ sudo ./ecryptfs-recover-private .ecryptfs/iboisvert/.Private/
+[sudo] password for iboisvert: 
+INFO: Found [.ecryptfs/iboisvert/.Private/].
+Try to recover this directory? [Y/n]: 
+INFO: Found your wrapped-passphrase
+Do you know your LOGIN passphrase? [Y/n] 
+INFO: Enter your LOGIN passphrase...
+Passphrase: 
+Inserted auth tok with sig [xxxxxxxxxxxxxxxx] into the user session keyring
+mount -i -t ecryptfs -o ro,ecryptfs_sig=xxxxxxxxxxxxxxxx,ecryptfs_fnek_sig=yyyyyyyyyyyyyyyy,ecryptfs_cipher=aes,ecryptfs_key_bytes=16 .ecryptfs/iboisvert/.Private/ /tmp/ecryptfs.d9xUHhVU
+mount: /tmp/ecryptfs.d9xUHhVU: mount(2) system call failed: No such file or directory.
+ERROR: Failed to mount private data at [/tmp/ecryptfs.d9xUHhVU].
+[iboisvert@asahi Backup]$ sudo mount -i -t ecryptfs -o ro,ecryptfs_sig=xxxxxxxxxxxxxxxx,ecryptfs_fnek_sig=yyyyyyyyyyyyyyyy,ecryptfs_cipher=aes,ecryptfs_key_bytes=16 .ecryptfs/iboisvert/.Private/ /tmp/ecryptfs.d9xUHhVU
+mount: /tmp/ecryptfs.d9xUHhVU: mount(2) system call failed: No such file or directory.
+[iboisvert@asahi Backup]$ sudo mount -t ecryptfs -o ro,ecryptfs_sig=xxxxxxxxxxxxxxxx,ecryptfs_fnek_sig=yyyyyyyyyyyyyyyy,ecryptfs_cipher=aes,ecryptfs_key_bytes=16 .ecryptfs/iboisvert/.Private/ /tmp/ecryptfs.d9xUHhVU
+Select key type to use for newly created files: 
+ 1) passphrase
+ 2) pkcs11-helper
+ 3) tspi
+Selection: 1
+Passphrase: 
+[iboisvert@asahi Backup]$ sudo mount -i -t ecryptfs -o ro,ecryptfs_sig=xxxxxxxxxxxxxxxx,ecryptfs_fnek_sig=yyyyyyyyyyyyyyyy,ecryptfs_cipher=aes,ecryptfs_key_bytes=16 .ecryptfs/iboisvert/.Private/ /tmp/ecryptfs.d9xUHhVU
+[iboisvert@asahi Backup]$ 
+```</pre>
 </div>
-<div created="20210828072740536" modified="20220326062905978" tags="" title="Ian Boisvert">
+<div created="20220323075944514" modified="20230330072808262" tags="Top" title="Home Lab">
+<pre>[[My home lab setup|http://iboisvert.github.io/homelab]]
+
+A shout out to [[Calgary Computer Wholesale|https://www.ebay.ca/str/calgarycomputerwholesale]]. If you are looking for used enterprise computer equipment at a really reasonable price and you are in Canada, check out their eBay store. I've bought a few machines from them and have always been happy with the quality and price. And, for 5 bucks, they offer local pickup!
+
+Update 2023: I've bought a couple more Lenovo ~ThinkStations from them for $100, very happy with them.</pre>
+</div>
+<div created="20210828072740536" modified="20220427060122563" tags="" title="Ian Boisvert">
 <pre>&quot;&quot;&quot;
-Engineer
+Chemical Engineer, Software Engineer, P. Eng (Alberta), Dev Manager
+
 [[LinkedIn|https://www.linkedin.com/in/ian-boisvert]]
 [[GitHub|https://github.com/iboisvert]]
 [[Docker Hub|https://hub.docker.com/u/iboisvert]]
@@ -10372,6 +10408,70 @@ Projects I've worked on
 </div>
 <div created="20210829184456999" modified="20210829184611894" tags="Top" title="Linux">
 <pre></pre>
+</div>
+<div created="20230330064657265" modified="20230330072840851" tags="fedora Linux" title="Migrating Fedora 36 to a new hard drive">
+<pre>! Issues Encountered
+
+I recently migrated my [[Fedora|https://getfedora.org/]] 36 install from a hard drive to an SSD. Here are the issues I ran into.
+
+!! Btrfs
+
+Fedora uses [[Btrfs|https://en.wikipedia.org/wiki/Btrfs]] by default. After partitioning the new disk, I used [[btrfs send|https://www.man7.org/linux/man-pages/man8/btrfs-send.8.html]]/[[btrfs receive|https://www.man7.org/linux/man-pages/man8/btrfs-receive.8.html]] to transfer the Btrfs subvolumes from the old disk to the new. 
+
+The subvolumes from the old disk that were transferred were:
+
+```
+FIXME
+```
+
+After transferring, the subvolumes on the new disk look like:
+
+```
+# btrfs subvolume list -at /
+ID	gen	top level	path	
+--	---	---------	----	
+256	2154	5		&lt;FS_TREE&gt;/home
+257	2154	5		&lt;FS_TREE&gt;/root
+```
+
+Notice that the `root` subvolume is no longer located at the root of the filesystem! 
+
+To make the `root` subvolume appear to be at the root of the filesystem, we need to mark it as the default subvolume:
+
+```
+# btrfs subvolume set-default 257 /
+```
+
+Arch Linux has some good information about Btrfs subvolumes [[here|https://wiki.archlinux.org/title/User:I2Oc9/Btrfs_subvolumes#Subvolumes_can_be_mounted]]
+
+!! Grub
+I'm not very clear on how UEFI and grub work together to boot the OS, so some of the following may not be completely correct.
+
+Grub searches for a file in the EFI partition at `EFI/fedora/grub.cfg`. On my machine this file instructs grub to search for another configuration file on another partition:
+
+```
+# cat /boot/efi/EFI/fedora/grub.cfg
+search --no-floppy --fs-uuid --set=dev 89fa4ee3-f474-4d32-9181-b2f7ae3f84c3
+set prefix=($dev)/grub2
+export $prefix
+configfile $prefix/grub.cfg
+```
+
+I'm guessing it does this to make package management a little easier. In my case, the partition is identified by the UUID `89fa4ee3-f474-4d32-9181-b2f7ae3f84c3`
+
+I believe I used tar to copy the files in the EFI partition from the old disk to the new. When I rebooted the machine, the UUID in `/boot/efi/EFI/fedora/grub.cfg` still pointed to the partition on the old disk and the machine booted from the old disk, not the new.
+
+To fix this problem, find the correct disk ID using `blkid`:
+
+```
+# blkid
+/dev/sda4: UUID=&quot;dcda15ef-6f61-45e8-a71a-11ede9a71002&quot; UUID_SUB=&quot;634fad89-6af8-4ed9-a1e0-2280090aad22&quot; BLOCK_SIZE=&quot;4096&quot; TYPE=&quot;btrfs&quot; PARTUUID=&quot;f8b3efc1-f1ea-2f47-a9ff-70c4208b4b35&quot;
+/dev/sda2: UUID=&quot;89fa4ee3-f474-4d32-9181-b2f7ae3f84c3&quot; BLOCK_SIZE=&quot;4096&quot; TYPE=&quot;ext4&quot; PARTUUID=&quot;24c04b42-4462-ee44-ab23-7fc6ce878ce9&quot;  # This is the /boot partition
+/dev/sda3: PARTUUID=&quot;f2e01089-bf2d-1942-9597-5a9dd8df7211&quot;
+/dev/sda1: UUID=&quot;6A29-526D&quot; BLOCK_SIZE=&quot;512&quot; TYPE=&quot;vfat&quot; PARTUUID=&quot;ae762ab9-6dbf-fa4c-841a-be10fd91e62c&quot;  # This is the EFI partition
+```
+
+and replace the old UUID with the correct value in  /boot/efi/EFI/fedora/grub.cfg.</pre>
 </div>
 
 
